@@ -1,34 +1,53 @@
 package com.example.stratum;
 
+
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private LinearLayout sem1, sem2, sem3, sem4, sem5;
+    private TextView welcomeMessage, assignmentCount, updateText;
+    private Button viewTimetable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sem1 = findViewById(R.id.sem_1);
-        sem2 = findViewById(R.id.sem_2);
-        sem3 = findViewById(R.id.sem_3);
-        sem4 = findViewById(R.id.sem_4);
-        sem5 = findViewById(R.id.sem_5);
+        welcomeMessage = findViewById(R.id.welcomeMessage);
+        assignmentCount = findViewById(R.id.assignmentCount);
+        updateText = findViewById(R.id.updateText);
+        viewTimetable = findViewById(R.id.viewTimetable);
+        BottomNavigationView bottomNavigation = findViewById(R.id.bottomNavigation);
 
-        sem1.setOnClickListener(v -> showToast("Sem I Selected"));
-        sem2.setOnClickListener(v -> showToast("Sem II Selected"));
-        sem3.setOnClickListener(v -> showToast("Sem III Selected"));
-        sem4.setOnClickListener(v -> showToast("Sem IV Selected"));
-        sem5.setOnClickListener(v -> showToast("Sem V Selected"));
-    }
+        // Click listener for timetable
+        viewTimetable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Opening Timetable...", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-    private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        // Bottom Navigation Handling
+        bottomNavigation.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.nav_home:
+                    Toast.makeText(this, "Home Selected", Toast.LENGTH_SHORT).show();
+                    return true;
+                case R.id.nav_subjects:
+                    Toast.makeText(this, "Subjects Selected", Toast.LENGTH_SHORT).show();
+                    return true;
+                case R.id.nav_board:
+                    Toast.makeText(this, "Board Selected", Toast.LENGTH_SHORT).show();
+                    return true;
+            }
+            return false;
+        });
     }
 }
